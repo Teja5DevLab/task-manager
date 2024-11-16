@@ -10,6 +10,14 @@ const Board = () => {
     return savedCards ? JSON.parse(savedCards) : DEFAULT_CARDS;
   });
 
+  const [isDesktop, setIsDesktop] = useState(window.innerWidth > 1024);
+
+  useEffect(() => {
+    const handleResize = () => setIsDesktop(window.innerWidth > 1024);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   useEffect(() => {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(cards));
   }, [cards]);
@@ -44,7 +52,7 @@ const Board = () => {
         cards={cards}
         setCards={setCards}
       />
-      <BurnBarrel setCards={setCards} />
+      {isDesktop && <BurnBarrel setCards={setCards} />}
     </div>
   );
 };

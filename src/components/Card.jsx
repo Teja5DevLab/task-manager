@@ -36,10 +36,17 @@ const Card = ({ title, id, column, priority, handleDragStart, setCards }) => {
     >
       {!isEditing ? (
         <>
-          <div className="pr-8"> {/* Added padding to the right */}
+          <div className="pr-8">
             <p className="text-sm text-white">{title}</p>
-            <p className={`text-xs ${priorityStyles[priority]}`}>
-              Priority: {priority.charAt(0).toUpperCase() + priority.slice(1)}
+            <p className="text-xs text-white">
+              Priority:{" "}
+              {priority ? (
+                <span className={priorityStyles[priority]}>
+                  {priority.charAt(0).toUpperCase() + priority.slice(1)}
+                </span>
+              ) : (
+                "Unknown"
+              )}
             </p>
           </div>
           <div className="absolute top-2 right-2 flex flex-col space-y-2 hidden group-hover:flex">
